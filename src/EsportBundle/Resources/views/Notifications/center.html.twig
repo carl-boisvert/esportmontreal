@@ -87,6 +87,26 @@
             });
         }
 
+        function listenAcceptTeamJoin(notification,modal){
+            $.ajax({
+                url:"/accept/team/"+notification.id
+            }).success(function(data){
+                        modal.modal('hide');
+                    }).error(function(xhr, ajaxOptions, thrownError){
+                        alert(xhr.responseText);
+                    });
+        }
+
+        function listenRefuseTeamJoin(notification,modal){
+            $.ajax({
+                url:"/refuse/team/"+notification.id
+            }).success(function(data){
+                        modal.modal('hide');
+                    }).error(function(xhr, ajaxOptions, thrownError){
+                        alert(xhr.responseText);
+                    });
+        }
+
         $(function(){
             $('tr').click(function(){
                 var recipient = $(this).attr('data-id');
@@ -101,7 +121,7 @@
                                 modal.find('.modal-footer').html("<a class='btn btn-primary playerAccept'>Accept</a><a class='btn btn-danger playerRefuse'>Refuse</a>");
                                 modal.modal("show");
                                 $(".playerAccept").click(function(){
-                                    listenAccept(notification,modeal);
+                                    listenAccept(notification,modal);
                                 });
                                 $(".playerRefuse").click(function(){
                                     listenRefuse(notification,modal);
@@ -113,6 +133,12 @@
                                 modal.find('.modal-body').html("<a href='/player/"+notification.sender.id+"'>"+notification.sender.gamertag+"</a> Ask you to join their team!<br/>");
                                 modal.find('.modal-footer').html("<a class='btn btn-primary playerAccept'>Accept</a><a class='btn btn-danger playerRefuse'>Refuse</a>");
                                 modal.modal("show");
+                                $(".playerAccept").click(function(){
+                                    listenAcceptTeamJoin(notification,modal);
+                                });
+                                $(".playerRefuse").click(function(){
+                                    listenRefuseTeamJoin(notification,modal);
+                                });
                             }
 
                         });

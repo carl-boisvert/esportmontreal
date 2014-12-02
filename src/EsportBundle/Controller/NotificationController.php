@@ -14,8 +14,8 @@ class NotificationController extends Controller
 
     public function viewAction(){
         $repo = $this->getDoctrine()->getRepository('EsportBundle:Notification');
-        $query = $repo->createQueryBuilder('u')
-            ->join('u.recipients', 'r')
+        $query = $repo->createQueryBuilder('n')
+            ->join('n.recipients', 'r')
             ->where('r.player = :id')
             ->setParameter('id',$this->get('security.context')->getToken()->getUser()->getId())
             ->getQuery();
@@ -27,12 +27,14 @@ class NotificationController extends Controller
         $session = $this->get('session');
         $em = $this->getDoctrine()->getManager();
         $player = $this->getDoctrine()->getRepository('EsportBundle:Player')->find($id);
+        $game = $session->get('game');
+        $game = $this->getDoctrine()->getRepository('EsportBundle:Game')->find($game->getId());
 
         $notification = new Notification();
         $notification->setType('Player');
         $notification->setSender($this->get('security.context')->getToken()->getUser());
         $notification->setSent(new \DateTime());
-        $notification->setGame($session->get('game'));
+        $notification->setGame($game);
 
         $infos = new NotificationInfos();
         $infos->setPlayer($player);
@@ -66,6 +68,8 @@ class NotificationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $team = $this->getDoctrine()->getRepository('EsportBundle:Team')->find($id);
         $gameId = $team->getGame()->getId();
+        $game = $session->get('game');
+        $game = $this->getDoctrine()->getRepository('EsportBundle:Game')->find($game->getId());
 
         $repo = $this->getDoctrine()->getRepository('EsportBundle:Team');
         $queryPlayer = $repo->createQueryBuilder('t')
@@ -84,7 +88,7 @@ class NotificationController extends Controller
             $notification->setType('Team');
             $notification->setSender($user);
             $notification->setSent(new \DateTime());
-            $notification->setGame($session->get('game'));
+            $notification->setGame($game);
             foreach($team->getPlayers() as $player){
                 $infos = new NotificationInfos();
                 $infos->setPlayer($player);
@@ -106,6 +110,25 @@ class NotificationController extends Controller
     }
 
     public function acceptTeamJoinAction($id){
+        $notification = $this->getDoctrine()->getRepository('EsportBundle:Notification')->find($id);
+        $player = $this->get('security.context')->getToken()->getUser();
+
+        $repo = $this->getDoctrine()->getRepository('EsportBundle:Team');
+        $query = $repo->createQueryBuilder('t')
+            ->join("t.game","g")
+            ->join("t.players","p")
+            ->where("g.id = :idGame")
+            ->andWhere("p.id = :idPlayer")
+            ->setParameter('idPlayer',$notification->getSender()->getId())
+            ->setParameter('idGame',$notification->getGame()->getId())
+            ->setMaxResults(1)
+            ->getQuery();
+        $team = $query->getResult()[0];
+        $team->addPlayer($player);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($team);
+        $em->flush();
+        return new Response(json_encode(array("error"=>false)));
 
     }
 
@@ -140,10 +163,7 @@ class NotificationController extends Controller
     }
 
     public function refuseTeamJoinAction($id){
-        $em = $this->getDoctrine()->getManager();
-        $notification = $this->getDoctrine()->getRepository('EsportBundle:Notification')->find($id);
-        $serializer = $this->get('jms_serializer');
-        $data = $serializer->serialize($notification, "json");
+        return new Response();
     }
 
     public function refusePlayerJoinAction($id){

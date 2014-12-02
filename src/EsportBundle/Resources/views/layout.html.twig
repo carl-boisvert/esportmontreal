@@ -7,7 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" charset="utf-8"></script>
     {% stylesheets 'bundles/assets/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -33,7 +33,15 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><strong>{{app.session.get('game').name}}</a></strong></li>
+                    <li>
+                        <a href="#">
+                            <strong>
+                                {% if app.session.get('game') %}
+                                    {{app.session.get('game').name}}
+                                {% endif %}
+                            </strong>
+                        </a>
+                    </li>
                     <!--<li><a href="{{ path('_player_profile')  }}">My profile</a></li>-->
                     {% if app.user %}
                         <li><a href="{{ path('_notifications') }}">Notifications <span class="notifNumber">{{ render(controller('EsportBundle:Notification:count')) }}</span></a></li>

@@ -12,8 +12,8 @@ class DashboardController extends Controller
         $session = $this->get('session');
         $team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
         $session->remove('game');
-        if(!$session->get('game')){
-            $team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
+        $team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
+        if(!$session->get('game') && $team){
             $session->set('game',$team->getGame());
         }
         $user= $this->get('security.context')->getToken()->getUser();
