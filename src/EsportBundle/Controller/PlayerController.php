@@ -21,16 +21,23 @@ class PlayerController extends Controller
             ->join('u.players', 'r')
             ->where('r.id = :id')
             ->setParameter('id',$player->getId())
-            ->getQuery();
+             ->getQuery();
+        // Get current user team
         $queryUser = $repo->createQueryBuilder('u')
             ->join('u.players', 'r')
             ->where('r.id = :id')
             ->setParameter('id',$this->get('security.context')->getToken()->getUser()->getId())
             ->getQuery();
+        $team = $queryUser->getResult()[0];
+        $showInviteButton = true;
+        if($player->getTeams()->contains($team)){
+            $showInviteButton = false;
+        }
         return $this->render('EsportBundle:Dashboard:player.html.twig', array(
                 "player"   => $player,
                 "teams"     => $queryPlayer->getResult(),
-                "team"      => $queryUser->getResult()[0]
+                "team"      => $team,
+                "showButton"=> $showInviteButton
             ));
     }
 }

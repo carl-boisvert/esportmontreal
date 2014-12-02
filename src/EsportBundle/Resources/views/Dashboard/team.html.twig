@@ -1,3 +1,4 @@
+
 {% extends "EsportBundle::layout.html.twig" %}
 {% block content %}
     <div class="container team">
@@ -18,9 +19,11 @@
                 <div>0</div>
             </div>
         </div>
-        <div class="teamAction col-xs-12">
-            <a href="{{ path('_team_join', {'id':team.id}) }}" class="btn btn-primary col-xs-2">Ask to join</a>
-        </div>
+        {% if showButton %}
+            <div class="teamAction col-xs-12">
+                <a href="{{ path('_team_join', {'id':team.id}) }}" class="btn btn-primary col-xs-2">Ask to join</a>
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}

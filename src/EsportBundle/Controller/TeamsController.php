@@ -17,7 +17,11 @@ class TeamsController extends Controller
     public function pageAction($id)
     {
         $team = $this->getDoctrine()->getRepository('EsportBundle:Team')->find($id);
-        return $this->render('EsportBundle:Dashboard:team.html.twig',array('team'=>$team));
+        $showJoinButton = true;
+        if($team->getPlayers()->contains($this->get('security.context')->getToken()->getUser())){
+            $showJoinButton = false;
+        }
+        return $this->render('EsportBundle:Dashboard:team.html.twig',array('team'=>$team, "showButton"=>$showJoinButton));
     }
 
 }

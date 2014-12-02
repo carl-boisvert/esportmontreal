@@ -58,7 +58,8 @@ class NotificationController extends Controller
         return $this->render('EsportBundle:Dashboard:player.html.twig',array(
                 "player"   => $player,
                 "teams"     => $queryPlayer->getResult(),
-                "team"      => $queryUser->getResult()[0]
+                "team"      => $queryUser->getResult()[0],
+                "showButton"=>true
             ));
     }
 
@@ -68,8 +69,7 @@ class NotificationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $team = $this->getDoctrine()->getRepository('EsportBundle:Team')->find($id);
         $gameId = $team->getGame()->getId();
-        $game = $session->get('game');
-        $game = $this->getDoctrine()->getRepository('EsportBundle:Game')->find($game->getId());
+        $game = $team->getGame();
 
         $repo = $this->getDoctrine()->getRepository('EsportBundle:Team');
         $queryPlayer = $repo->createQueryBuilder('t')
@@ -97,7 +97,7 @@ class NotificationController extends Controller
             }
             $em->persist($notification);
             $em->flush();
-            return $this->render('EsportBundle:Dashboard:team.html.twig',array('team'=>$team));
+            return $this->render('EsportBundle:Dashboard:team.html.twig',array('team'=>$team,'showButton'=>true));
         }
         else{
             $serializer = $this->container->get('jms_serializer');
