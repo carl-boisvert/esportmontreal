@@ -147,7 +147,7 @@ class NotificationController extends Controller
     }
 
     public function refusePlayerJoinAction($id){
-
+        return new Response();
     }
 
     public function getNotificationAction($id){
