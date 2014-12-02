@@ -1,0 +1,10 @@
+.team h1, .team .teamScore{
+    text-align: center;
+}
+.team h1{
+    border-bottom: 4px solid #CC392F;
+    padding-bottom: 10px;
+}
+.teamAction{
+    text-align: center;
+}

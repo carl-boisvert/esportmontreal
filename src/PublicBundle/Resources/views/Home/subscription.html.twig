@@ -1,0 +1,14 @@
+{% extends "PublicBundle::layout.html.twig" %}
+{% block content %}
+    <h1 class="col-xs-12">Enlist now</h1>
+    <p class="col-xs-12">You are now ready to challenge the greatest player in the city? Well here's the way! Will you subscribe as a team or as a player?</p>
+    <p  class="col-xs-12">First, let's take a look at how it works.</p>
+    <h3 class="col-xs-12">I want to subscribe as a team</h3>
+    <p class="col-xs-12">To subscribe as a team, you need one of your teamates to create the team. Once he created the team, I'll be able to invite you. The other team members must register as
+        a player. They will also be able to send a join request.</p>
+    <div class="col-xs-12"><a href="{{  path('_subscribe_team') }}" class="btn btn-danger">Subscribe as a team</a></div>
+    <h3 class="col-xs-12">I want to subscribe as a Player</h3>
+    <p class="col-xs-12">Excellent. We need players to make teams. Register and be on the look out. There will be planty of team scouting for good talent.</p>
+    <div class="col-xs-12"><a href="{{  path('_subscribe_player') }}" class="btn btn-danger">Subscribe as a player</a></div>
+{% endblock %}
+

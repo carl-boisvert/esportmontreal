@@ -1,0 +1,40 @@
+EsportBundle\Entity\Team:
+    type: entity
+    table: teams
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        console:
+            type: string
+            length: '100'
+        quote:
+            type: string
+            length: '140'
+            nullable: true
+    manyToMany:
+        players:
+            targetEntity: Player
+            joinTable:
+              name: teams_players
+              joinColumns:
+                player_id:
+                  referencedColumnName: id
+              inverseJoinColumns:
+                team_id:
+                  referencedColumnName: id
+    manyToOne:
+        game:
+          targetEntity: Game
+          inversedBy: teams
+          joinColumn:
+            name: game_id
+            referencedColumnName: id
+
+    lifecycleCallbacks: {  }

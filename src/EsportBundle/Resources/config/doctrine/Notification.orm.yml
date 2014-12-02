@@ -1,0 +1,40 @@
+EsportBundle\Entity\Notification:
+    type: entity
+    table: notification
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        type:
+            type: string
+            length: "100"
+            expose: true
+        sent:
+            type: datetime
+    manyToMany:
+        recipients:
+            targetEntity: NotificationInfos
+            joinTable:
+              name: notification_players
+              joinColumns:
+                notificationInfos_id:
+                  referencedColumnName: id
+              inverseJoinColumns:
+                notification_id:
+                  referencedColumnName: id
+                  unique: true
+    manyToOne:
+        sender:
+            targetEntity: Player
+            joinColumn:
+                name: player_id
+                referencedColumnName: id
+        game:
+            targetEntity: Game
+            joinColumn:
+                name: game_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

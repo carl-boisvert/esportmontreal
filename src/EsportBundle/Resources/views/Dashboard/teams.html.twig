@@ -1,0 +1,28 @@
+{% extends "EsportBundle::layout.html.twig" %}
+{% block content %}
+    <div class="col-xs-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Team name</th>
+                <th>Console</th>
+                <th>#players</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for team in teams %}
+                <tr id="{{ team.id }}">
+                <td>{{ team.name }}</td>
+                <td>{{ team.console }}</td>
+                <td>{{ team.players|length }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $('.table tbody tr').click(function() {
+            window.location.replace('/team/'+$(this).attr('id'));
+        });
+    </script>
+{% endblock %}

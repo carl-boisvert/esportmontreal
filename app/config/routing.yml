@@ -1,0 +1,8 @@
+esport:
+    resource: "@EsportBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dashboard:
+    resource: "@PublicBundle/Resources/config/routing.yml"
+    prefix:   /
+

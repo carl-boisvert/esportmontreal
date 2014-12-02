@@ -1,0 +1,46 @@
+EsportBundle\Entity\Player:
+    type: entity
+    table: players
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstname:
+            type: string
+            length: '100'
+        lastname:
+            type: string
+            length: '100'
+        gamertag:
+            type: string
+            length: '100'
+        console:
+            type: string
+            length: '20'
+        password:
+            type: string
+            length: '100'
+        email:
+            type: string
+            length: '100'
+            unique: true
+        country:
+            type: string
+            length: '100'
+        region:
+            type: string
+            length: '100'
+        hash:
+            type: string
+            lenght: '100'
+        status:
+            type: string
+            lenght: '20'
+    manyToMany:
+        teams:
+            targetEntity: Team
+            mappedBy: players
+    lifecycleCallbacks: {  }

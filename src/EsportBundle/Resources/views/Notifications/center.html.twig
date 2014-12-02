@@ -1,0 +1,139 @@
+{% extends "EsportBundle::layout.html.twig" %}
+{% block content %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sent</th>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for notification in notifications %}
+            {% set notificationInfo = "" %}
+            {% for recipient in notification.recipients %}
+                {% if recipient.player.id == app.user.getId() %}
+                    {% set notificationInfo = recipient %}
+                {% endif %}
+            {% endfor %}
+            {% if notificationInfo.isRead %}
+                <tr data-toggle="modal" data-id="{{ notification.id }}" data-target="#myModal">
+            {% else %}
+                <tr class="notRead" data-id="{{ notification.id }}" >
+            {% endif %}
+                <td>
+                    {{ notificationInfo.isRead|date('d/m/y') }}
+                </td>
+                <td>
+                    {{ notification.sender.gamertag }}
+                </td>
+                <td>
+                    {% if notification.type == "Team" %}
+                        Someone wants to join your team!
+                    {% elseif notification.type == "Player" %}
+                        You've been invited to join a team!
+                    {% endif %}
+                </td>
+                <td>
+                    {% if notification.type == " " %}
+                        Player {{ notification.sender.gamertag }} ask to join your team
+                    {% elseif notification.type == "Player" %}
+
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function listenAccept(notification){
+            $.ajax({
+                url:"/accept/player/"+notification.id
+            }).success(function(data){
+
+            }).error(function(xhr, ajaxOptions, thrownError){
+                        alert(xhr.responseText);
+            });
+        }
+
+        function listenRefuse(notification){
+            $.ajax({
+                url:"/refuse/player/"+notification.id
+            }).success(function(data){
+
+            }).error(function(xhr, ajaxOptions, thrownError){
+                alert(xhr.responseText);
+            });
+        }
+
+        $(function(){
+            $('tr').click(function(){
+                var recipient = $(this).attr('data-id');
+                $.ajax({
+                    url:"/notifications/read/"+recipient
+                }).success(function(notification){
+                            console.log(notification);
+                            var modal = $("#myModal");
+                            if(notification.type == "Team"){
+                                modal.find('.modal-title').text(notification.sender.gamertag);
+                                modal.find('.modal-body').html("<a href='/player/"+notification.sender.id+"'>"+notification.sender.gamertag+"</a> Ask to join your team<br/>");
+                                modal.find('.modal-footer').html("<a class='btn btn-primary playerAccept'>Accept</a><a class='btn btn-danger playerRefuse'>Refuse</a>");
+                                modal.modal("show");
+                                $(".playerAccept").click(function(){
+                                    listenAccept(notification);
+                                });
+                                $(".playerRefuse").click(function(){
+                                    listenRefuse(notification);
+                                });
+                            }
+                            else if(notification.type == "Player"){
+                                console.log("Player");
+                                modal.find('.modal-title').text(notification.sender.teams[0].name);
+                                modal.find('.modal-body').html("<a href='/player/"+notification.sender.id+"'>"+notification.sender.gamertag+"</a> Ask you to join their team!<br/>");
+                                modal.find('.modal-footer').html("<a class='btn btn-primary playerAccept'>Accept</a><a class='btn btn-danger playerRefuse'>Refuse</a>");
+                                modal.modal("show");
+                            }
+
+                        });
+                if($(this).hasClass("notRead")){
+                    $(this).toggleClass("notRead");
+                }
+            });
+            /*$('#myModal').on('show.bs.modal', function (event) {
+                console.log("SALUT");
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('id') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                $.ajax({
+                    url:"/notifications/"+recipient
+                }).success(function(data){
+                    var modal = $(this);
+                    modal.find('.modal-title').text(data.sender.gamertag);
+                });
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+            })*/
+        });
+    </script>
+{% endblock %}

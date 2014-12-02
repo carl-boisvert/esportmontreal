@@ -1,0 +1,29 @@
+home_public_homepage:
+    path:     /
+    defaults: { _controller: PublicBundle:Home:index }
+_subscription:
+    path: /subscription/player
+    defaults: { _controller: PublicBundle:Players:subscription}
+_confirmEmail:
+    path: /subscription/confirm/{id}
+    defaults: { _controller: PublicBundle:Players:confirm}
+login:
+    pattern: /login
+    defaults: { _controller: PublicBundle:Players:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+_subscribe:
+    pattern: /subscribe
+    defaults: { _controller: PublicBundle:Home:subscribe}
+_subscribe_team:
+    path:     /subscribe/team
+    defaults: { _controller: PublicBundle:Teams:team }
+_subscribe_player:
+    path:     /subscribe/player
+    defaults: { _controller: PublicBundle:Players:player }
+
+

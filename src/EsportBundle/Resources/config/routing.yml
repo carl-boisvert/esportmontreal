@@ -1,0 +1,55 @@
+test_serializer:
+    path: /game/{id}
+    defaults: { _controller: EsportBundle:Dashboard:game}
+esport_homepage:
+    path:     /dashboard
+    defaults: { _controller: EsportBundle:Dashboard:index }
+_team_search:
+    path:     /team/search
+    defaults: { _controller: EsportBundle:team:search}
+_team_create:
+    path:     /team/create
+    defaults: { _controller: EsportBundle:team:create}
+_player_profile:
+    path:     /profile
+    defaults: { _controller: EsportBundle:Default:profile}
+_notifications:
+    path:     /notifications
+    defaults: { _controller: EsportBundle:Notification:view}
+_games:
+    path: /games
+    defaults: { _controller: EsportBundle:Games:index}
+_teams:
+    path: /teams
+    defaults: { _controller: EsportBundle:Teams:index}
+_players:
+    path:     /players
+    defaults: { _controller: EsportBundle:Player:index }
+_team_join:
+    path:     /team/join/{{id}}
+    defaults: { _controller: EsportBundle:Notification:sendJoinTeam}
+_team_page:
+    path:     /team/{id}
+    defaults: { _controller: EsportBundle:Teams:page}
+_player_page:
+    path:     /player/{id}
+    defaults: { _controller: EsportBundle:Player:page }
+_player_join:
+    path:     /player/join/{id}
+    defaults: { _controller: EsportBundle:Notification:sendInvitePlayer }
+_get_notification:
+    path:     /notifications/read/{id}
+    defaults: { _controller: EsportBundle:Notification:getNotification }
+_accept_team:
+    path:   /accept/team/{id}
+    defaults: { _controller: EsportBundle:Notification:acceptTeamJoin}
+_accept_player:
+    path:   /accept/player/{id}
+    defaults: { _controller: EsportBundle:Notification:acceptPlayerJoin}
+_refuse_team:
+    path:   /refuse/team/{id}
+    defaults: { _controller: EsportBundle:Notification:refuseTeamJoin}
+_refuse_player:
+    path:   /refuse/player/{id}
+    defaults: { _controller: EsportBundle:Notification:refusePlayerJoin}
+

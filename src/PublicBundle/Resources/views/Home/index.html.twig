@@ -1,0 +1,119 @@
+{% extends "PublicBundle::layout.html.twig" %}
+{% block content %}
+<div class="col-xs-12 centerChild">
+    <h3>Rules</h3>
+    <table class="table rules">
+        <thead>
+            <th></th>
+            <th>Capture the flag</th>
+            <th>Hardpoint</th>
+            <th>Search and destroy</th>
+            <th>Uplink</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>General settings</td>
+                <td>
+                    <ul>
+                        <li>Time limit: 10 minutes</li>
+                        <li>Capture Limit: Unlimited</li>
+                        <li>Winning Condition: Flag Captures</li>
+                        <li>Flag Auto-Return: 15 seconds</li>
+                        <li>Pickup Time: None</li>
+                        <li>Enemy Carrier Kill Icon: Delayed</li>
+                        <li>Respawn Delay: 5 seconds</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Time limit: 10 minutes</li>
+                        <li>Score Limit: 250 Points</li>
+                        <li>Activation Delay: None</li>
+                        <li>Location Order: Normal</li>
+                        <li>Respawn Delay: 2.5 seconds</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Round Length: 1.5 Minutes</li>
+                        <li>Score Limit: 6 Rounds</li>
+                        <li>Bomb Timer: 45 seconds</li>
+                        <li>Plant Time 5 seconds</li>
+                        <li>Defuse Time: 7.5 seconds</li>
+                        <li>Multi Bomb: Disabled</li>
+                        <li>Round Switch: Every Round</li>
+                        <li>Silent Plant: Enabled</li>
+                        <li>Number Of Lives: 1</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Time Limit: 10 Minutes</li>
+                        <li>Score Limit: 20 points</li>
+                        <li>Satellite Count: 1</li>
+                        <li>Carrier Armor: Normal</li>
+                        <li>Carry Score: 2 points</li>
+                        <li>Throw Score: 1 points</li>
+                        <li>Reset Time: 15 seconds</li>
+                        <li>Respawn Delay: 5 seconds</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Banned Item</h3>
+    <table class="table rules">
+        <thead>
+            <th>Weapons</th>
+            <th>Exo Launchers</th>
+            <th>Attachments</th>
+            <th>Scorestreak</th>
+            <th>Exo Abilities</th>
+            <th>Wild Cards</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <ul>
+                        <li>All Primary Specials</li>
+                        <li>All Secondary Launchers</li>
+                        <li>All Supply Drop Weapons</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Tracking Drone</li>
+                        <li>Explosive Drone</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Akimbo</li>
+                        <li>Grenade Launcher</li>
+                        <li>Tracker</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>UAV</li>
+                        <li>Orbital Care Package</li>
+                        <li>Symtem Hack</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Ping</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Bombardier</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,92 @@
+.blueBackground{
+    background-color: #03899C;
+}
+.blueColor{
+    color:#03899C;
+}
+
+.greenBackground{
+    background-color: #67E300;
+}
+.greenColor{
+    color:#67E300;
+}
+
+.orangeBackground{
+    background-color: #FF7A00;
+}
+.orangeColor{
+    color:#FF7A00;
+}
+
+.pinkBackground{
+    background-color: #E40045;
+}
+.pinkColor{
+    color:#E40045;
+}
+
+.navBarColor{
+    background-color: black;
+}
+
+.navBarColor .navbar-right ul li a, .navBarColor div.navbar-header a{
+    color:#cc392f;
+}
+.form-control:focus {
+    border-color: #CC392F;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(204, 57, 47, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(204, 57, 47, 0.6);
+}
+tr{
+    height: 50px;
+}
+td{
+    vertical-align: middle!important;
+}
+tr.notRead{
+    background-color: #CC392F;
+}
+.centerChild{
+    text-align: center;
+}
+.rules ul li{
+    list-style: none;
+    text-align: left;
+}
+.rules ul{
+    padding-left: 0px;
+
+}
+.rules td{
+    vertical-align: top!important;
+}
+.notifNumber{
+    background-color: #cc392f;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+.profilePlayer{
+    text-align: center;
+}
+
+.domain {
+    fill: none;
+    stroke: black;
+    stroke-width:  1;
+}
+path{
+    stroke:#cc392f;
+}
+.team h1, .team .teamScore{
+    text-align: center;
+}
+.team h1{
+    border-bottom: 4px solid #CC392F;
+    padding-bottom: 10px;
+}
+.teamAction{
+    text-align: center;
+}

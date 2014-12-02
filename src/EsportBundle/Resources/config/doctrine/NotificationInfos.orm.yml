@@ -1,0 +1,21 @@
+EsportBundle\Entity\NotificationInfos:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        isRead:
+            type: boolean
+        readTime:
+            type: datetime
+    manyToOne:
+        player:
+            targetEntity: Player
+            joinColumn:
+                name: player_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

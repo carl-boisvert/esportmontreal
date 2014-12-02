@@ -1,0 +1,12 @@
+.profilePlayer{
+    text-align: center;
+}
+
+.domain {
+    fill: none;
+    stroke: black;
+    stroke-width:  1;
+}
+path{
+    stroke:#cc392f;
+}

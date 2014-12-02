@@ -1,0 +1,56 @@
+{% extends "PublicBundle::layout.html.twig" %}
+{% block content %}
+    <h1 class="col-xs-12">Subscribe</h1>
+    <p class="col-xs-12">You already have a team? Great! Fill this form to subscribe her to the Call Of Duty season</p>
+
+
+    {{ form_start(form,{"attr":{"role":"form","class":"col-xs-2"}}) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_row(form.name,{"attr":{"class":"form-control"}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.players) }}
+        {{ form_errors(form.players) }}
+        {% for player in form.players %}
+                {{ form_errors(player) }}
+                {{ form_row(player.gamertag,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.console,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.firstname,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.lastname,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.email,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.password,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.country,{"attr":{"class":"form-control"}}) }}
+                {{ form_row(player.region,{"attr":{"class":"form-control"}}) }}
+        {% endfor %}
+    </div>
+
+    {{ form_end(form) }}
+
+    <script>
+        var $player = $('#esportbundle_team_players_0_country');
+        // When sport gets selected ...
+        $player.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$player.attr('name')] = $player.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('#esportbundle_team_players_0_region').replaceWith(
+                            // ... with the returned one from the AJAX response.
+                            $(html).find('#esportbundle_team_players_0_region')
+                    );
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    </script>
+{% endblock %}
