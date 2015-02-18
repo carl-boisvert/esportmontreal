@@ -13,7 +13,11 @@
             {% for player in players %}
                 <tr id="{{ player.id }}">
                 <td>{{ player.gamertag }}</td>
-                <td>{{ player.console }}</td>
+                <td>
+                    {% for console in player.consoles %}
+                        {{ console.name }}
+                    {% endfor %}
+                </td>
                 <td>
                     {% for team in player.teams %}
                         {{ team.name }}

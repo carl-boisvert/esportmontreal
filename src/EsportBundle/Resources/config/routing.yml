@@ -10,15 +10,15 @@ _team_search:
 _team_create:
     path:     /team/create
     defaults: { _controller: EsportBundle:team:create}
-_player_profile:
-    path:     /profile
-    defaults: { _controller: EsportBundle:Default:profile}
 _notifications:
     path:     /notifications
     defaults: { _controller: EsportBundle:Notification:view}
 _games:
     path: /games
-    defaults: { _controller: EsportBundle:Games:index}
+    defaults: { _controller: EsportBundle:Game:index}
+_game_set:
+    path: /game/{gameId}/{consoleId}
+    defaults: { _controller: EsportBundle:Game:setGame}
 _teams:
     path: /teams
     defaults: { _controller: EsportBundle:Teams:index}

@@ -3,12 +3,21 @@
 namespace EsportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use EsportBundle\Interfaces\PreController;
 
-class PlayerController extends Controller
+class PlayerController extends Controller implements PreController
 {
     public function indexAction()
     {
-        $players = $this->getDoctrine()->getRepository('EsportBundle:Player')->findAll();
+        $player = $this->get('security.context')->getToken()->getUser();
+        $repository = $this->getDoctrine()->getRepository('EsportBundle:Player');
+        $consoles = $player->getConsoles()->map(function($entity){return $entity->getName();})->toArray();
+        $query = $repository->createQueryBuilder('p')
+            ->leftJoin('p.consoles','c')
+            ->where("c.name IN(:consoles)")
+            ->setParameter('consoles', $consoles)
+            ->getQuery();
+        $players = $query->getResult();
         return $this->render('EsportBundle:Dashboard:players.html.twig', array(
                 "players"   => $players
             ));
@@ -28,11 +37,15 @@ class PlayerController extends Controller
             ->where('r.id = :id')
             ->setParameter('id',$this->get('security.context')->getToken()->getUser()->getId())
             ->getQuery();
-        $team = $queryUser->getResult()[0];
+        $team = null;
         $showInviteButton = true;
-        if($player->getTeams()->contains($team)){
-            $showInviteButton = false;
+        if($queryUser->getResult()){
+            $team = $queryUser->getResult()[0];
+            if($player->getTeams()->contains($team)){
+                $showInviteButton = false;
+            }
         }
+
         return $this->render('EsportBundle:Dashboard:player.html.twig', array(
                 "player"   => $player,
                 "teams"     => $queryPlayer->getResult(),

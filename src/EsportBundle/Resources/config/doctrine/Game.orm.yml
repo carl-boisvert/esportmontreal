@@ -11,8 +11,33 @@ EsportBundle\Entity\Game:
         name:
             type: string
             length: '100'
+        img:
+            type: string
+            length: '100'
     oneToMany:
         teams:
           targetEntity: Team
           mappedBy: game
+    manyToMany:
+        players:
+          targetEntity: Player
+          joinTable:
+            name: games_players
+            joinColumns:
+              game_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              player_id:
+                referencedColumnName: id
+        consoles:
+          targetEntity: Console
+          inversedBy: games
+          joinTable:
+            name: games_consoles
+            joinColumns:
+              game_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              console_id:
+                referencedColumnName: id
     lifecycleCallbacks: {  }

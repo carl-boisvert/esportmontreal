@@ -7,6 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" charset="utf-8"></script>
     {% stylesheets 'bundles/assets/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -34,7 +35,14 @@
             <div class="collapse navbar-collapse nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">
+                        <a href="{{ path("_player_page",{"id":app.user.id}) }}">
+                            <strong>
+                                {{ app.user.gamertag }}
+                            </strong>
+                        </a>
+                    </li>
+                    <li class="{#  app.session.get('console').name|replace({' ':''}) }}#}">
+                        <a href="{{ path('_games') }}">
                             <strong>
                                 {% if app.session.get('game') %}
                                     {{app.session.get('game').name}}
@@ -42,10 +50,17 @@
                             </strong>
                         </a>
                     </li>
-                    <!--<li><a href="{{ path('_player_profile')  }}">My profile</a></li>-->
                     {% if app.user %}
                         <li><a href="{{ path('_notifications') }}">Notifications <span class="notifNumber">{{ render(controller('EsportBundle:Notification:count')) }}</span></a></li>
                     {% endif %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My teams <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            {% for team in app.user.teams %}
+                                <li><a href="{{ path('_team_page', {'id': team.id}) }}}">{{ team.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                     <li><a href="{{ path('_teams') }}">Teams</a></li>
                     <li><a href="{{ path('_players') }}">Players</a></li>
                     <li><a href="">Contact us</a></li>
@@ -59,8 +74,10 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>

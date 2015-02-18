@@ -1,0 +1,21 @@
+EsportBundle\Entity\Console:
+    type: entity
+    table: consoles
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+    manyToMany:
+        games:
+          targetEntity: Game
+          mappedBy: consoles
+        players:
+          targetEntity: Player
+          mappedBy: consoles
+    lifecycleCallbacks: {  }

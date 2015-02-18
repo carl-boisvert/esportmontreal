@@ -97,4 +97,108 @@ class Game
     {
         return $this->teams;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $players;
+
+
+    /**
+     * Add players
+     *
+     * @param \EsportBundle\Entity\Players $players
+     * @return Game
+     */
+    public function addPlayer(\EsportBundle\Entity\Player $players)
+    {
+        $this->players[] = $players;
+
+        return $this;
+    }
+
+    /**
+     * Remove players
+     *
+     * @param \EsportBundle\Entity\Players $players
+     */
+    public function removePlayer(\EsportBundle\Entity\Player $players)
+    {
+        $this->players->removeElement($players);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $consoles;
+
+
+    /**
+     * Add consoles
+     *
+     * @param \EsportBundle\Entity\Console $consoles
+     * @return Game
+     */
+    public function addConsole(\EsportBundle\Entity\Console $consoles)
+    {
+        $this->consoles[] = $consoles;
+
+        return $this;
+    }
+
+    /**
+     * Remove consoles
+     *
+     * @param \EsportBundle\Entity\Console $consoles
+     */
+    public function removeConsole(\EsportBundle\Entity\Console $consoles)
+    {
+        $this->consoles->removeElement($consoles);
+    }
+
+    /**
+     * Get consoles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getConsoles()
+    {
+        return $this->consoles;
+    }
+    /**
+     * @var string
+     */
+    private $img;
+
+
+    /**
+     * Set img
+     *
+     * @param string $img
+     * @return Game
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    /**
+     * Get img
+     *
+     * @return string 
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
 }

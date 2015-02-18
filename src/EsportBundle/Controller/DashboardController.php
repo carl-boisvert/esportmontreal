@@ -4,18 +4,19 @@ namespace EsportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use EsportBundle\Interfaces\PreController;
 
-class DashboardController extends Controller
+class DashboardController extends Controller implements PreController
 {
+
     public function indexAction()
     {
-        $session = $this->get('session');
-        $team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
-        $session->remove('game');
-        $team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
+        //$session = $this->get('session');
+        //$team = $this->get('security.context')->getToken()->getUser()->getTeams()[0];
+        /*$session->remove('game');
         if(!$session->get('game') && $team){
             $session->set('game',$team->getGame());
-        }
+        }*/
         $user= $this->get('security.context')->getToken()->getUser();
         return $this->render('EsportBundle:Dashboard:index.html.twig', array('user' => $user));
     }

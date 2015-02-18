@@ -17,9 +17,6 @@ EsportBundle\Entity\Player:
         gamertag:
             type: string
             length: '100'
-        console:
-            type: string
-            length: '20'
         password:
             type: string
             length: '100'
@@ -43,4 +40,20 @@ EsportBundle\Entity\Player:
         teams:
             targetEntity: Team
             mappedBy: players
+        consoles:
+            targetEntity: Console
+            inversedBy: players
+            joinTable:
+              name: players_consoles
+              joinColumns:
+                player_id:
+                  referencedColumnName: id
+              inverseJoinColumns:
+                console_id:
+                  referencedColumnName: id
+    oneToMany:
+        games:
+          targetEntity: PlayersGames
+          mappedBy: player
+
     lifecycleCallbacks: {  }

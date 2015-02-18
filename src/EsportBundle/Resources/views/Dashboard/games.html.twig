@@ -1,0 +1,30 @@
+{% extends "EsportBundle::layout.html.twig" %}
+{% block content %}
+    <div class="col-xs-12 centerChild">
+        {% if noGame %}
+            <h3>
+                You must select a game first
+            </h3>
+        {% endif %}
+        {% for game in games %}
+            <div class="col-md-3">
+                <div class="col-md-6 col-md-offset-3">
+                    <img class="img-responsive" src="{{ asset('/bundles/esport/images') }}/{{ game.img }}" alt="Symfony!" />
+                    <div>
+                        {{ game.name }}
+                    </div>
+
+                    {% for console in game.consoles %}
+                        {% if console.name in playersConsoles %}
+                            {% if game.id in playersGames|keys and playersGames[game.id] == console.id %}
+                                <div class="col-xs-6 {{ console.name|replace({' ':''}) }}"><a href="{{ path('_game_set',{'gameId': game.id,'consoleId':console.id}) }}">{{ console.name }}</a></div>
+                            {% else %}
+                                <div class="col-xs-6 {{ console.name|replace({' ':''}) }}"><a href="{{ path('_game_set',{'gameId': game.id,'consoleId':console.id}) }}"> <i class="icon-plus icon-1"></i> {{ console.name }}</a></div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

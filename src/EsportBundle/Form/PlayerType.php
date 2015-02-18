@@ -50,7 +50,7 @@ class PlayerType extends AbstractType
 
         $builder
             ->add('gamertag','text')
-            ->add('console','choice',array(
+            /*->add('consoles','choice',array(
                     'choices' => array(
                         'PS4'=>'PS4',
                         'Xbox One'=>'Xbox One',
@@ -59,7 +59,7 @@ class PlayerType extends AbstractType
                     'label'=>"Competition plateform",
                     'required'=>true,
                     'empty_value' => 'Select'
-                ))
+                ))*/
             ->add('firstname','text')
             ->add('lastname','text')
             ->add('email','email')

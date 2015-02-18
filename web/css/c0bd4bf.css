@@ -68,6 +68,17 @@ tr.notRead{
     padding: 3px;
     border-radius: 5px;
 }
+.XboxOne{
+    color: white;
+    background-color: #107c10;
+}
+.PS4{
+    color:white;
+    background-color:#0d4da1;
+}
+.PS4 a, .XboxOne a{
+    color:white!important;
+}
 .profilePlayer{
     text-align: center;
 }

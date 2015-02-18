@@ -34,11 +34,6 @@ class Player implements UserInterface, EquatableInterface
     /**
      * @var string
      */
-    private $console;
-
-    /**
-     * @var string
-     */
     private $password;
 
     /**
@@ -144,29 +139,6 @@ class Player implements UserInterface, EquatableInterface
     public function getGamertag()
     {
         return $this->gamertag;
-    }
-
-    /**
-     * Set console
-     *
-     * @param string $console
-     * @return Player
-     */
-    public function setConsole($console)
-    {
-        $this->console = $console;
-
-        return $this;
-    }
-
-    /**
-     * Get console
-     *
-     * @return string 
-     */
-    public function getConsole()
-    {
-        return $this->console;
     }
 
     /**
@@ -427,5 +399,82 @@ class Player implements UserInterface, EquatableInterface
 
     public function verifyUniqueTeamPerGames(){
 
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $consoles;
+
+
+    /**
+     * Add consoles
+     *
+     * @param \EsportBundle\Entity\Console $consoles
+     * @return Player
+     */
+    public function addConsole(\EsportBundle\Entity\Console $consoles)
+    {
+        $this->consoles[] = $consoles;
+
+        return $this;
+    }
+
+    /**
+     * Remove consoles
+     *
+     * @param \EsportBundle\Entity\Console $consoles
+     */
+    public function removeConsole(\EsportBundle\Entity\Console $consoles)
+    {
+        $this->consoles->removeElement($consoles);
+    }
+
+    /**
+     * Get consoles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getConsoles()
+    {
+        return $this->consoles;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $games;
+
+
+    /**
+     * Add games
+     *
+     * @param \EsportBundle\Entity\PlayersGames $games
+     * @return Player
+     */
+    public function addGame(\EsportBundle\Entity\PlayersGames $games)
+    {
+        $this->games[] = $games;
+
+        return $this;
+    }
+
+    /**
+     * Remove games
+     *
+     * @param \EsportBundle\Entity\PlayersGames $games
+     */
+    public function removeGame(\EsportBundle\Entity\PlayersGames $games)
+    {
+        $this->games->removeElement($games);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGames()
+    {
+        return $this->games;
     }
 }

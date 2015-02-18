@@ -76,3 +76,9 @@ services:
     mail:
         class:        EsportBundle\Services\Mail
         arguments:    ['@mailer', '@templating']
+    kernel.listener.preControllers:
+        class:        EsportBundle\Services\SessionVerification
+        arguments:    ['@session','@service_container']
+        tags:
+                    - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+

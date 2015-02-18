@@ -1,0 +1,30 @@
+EsportBundle\Entity\PlayersGames:
+    type: entity
+    table: null
+    id:
+      id:
+          type: integer
+          id: true
+          generator:
+              strategy: AUTO
+    repositoryClass: EsportBundle\Entity\PlayersGamesRepository
+    manyToOne:
+      player:
+        targetEntity: Player
+        inversedBy: games
+        joinColumn:
+          name: player_id
+          referencedColumnName: id
+      game:
+        targetEntity: Game
+        joinColumn:
+          name: game_id
+          referencedColumnName: id
+      console:
+        targetEntity: Console
+        joinColumn:
+          name: console_id
+          referencedColumnName: id
+
+
+    lifecycleCallbacks: {  }

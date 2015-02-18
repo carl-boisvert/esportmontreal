@@ -21,6 +21,7 @@ EsportBundle\Entity\Team:
     manyToMany:
         players:
             targetEntity: Player
+            inversedBy: teams
             joinTable:
               name: teams_players
               joinColumns:

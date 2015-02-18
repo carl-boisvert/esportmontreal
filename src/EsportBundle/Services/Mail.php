@@ -1,6 +1,6 @@
 <?php
 
-namespace Home\PublicBundle\Services;
+namespace EsportBundle\Services;
 
 class Mail{
 
@@ -13,12 +13,12 @@ class Mail{
     }
 
     public function sendConfirmationEmail($id,$name, $email, $hash){
-        $message = \Swift_Message::newInstance()
+        /*$message = \Swift_Message::newInstance()
             ->setSubject('Confirm your email')     // we configure the title
             ->setFrom('noreply@carlboisvert.com')     // we configure the sender
             ->setTo($email)     // we configure the recipient
             ->setBody($this->renderer->render('HomePublicBundle:Email:confirmEmail.html.twig', array('id'=>$id,'name' => $name, 'hash'=>$hash)));
-        //$this->mailService->send($message);
+        $this->mailService->send($message);*/
     }
 
 

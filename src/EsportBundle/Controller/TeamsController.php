@@ -4,13 +4,15 @@ namespace EsportBundle\Controller;
 
 use EsportBundle\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use EsportBundle\Interfaces\PreController;
 
 
-class TeamsController extends Controller
+class TeamsController extends Controller implements PreController
 {
     public function indexAction()
     {
-        $game = $this->getDoctrine()->getRepository('EsportBundle:Game')->find(1);
+        $session = $this->get('session');
+        $game = $this->getDoctrine()->getRepository('EsportBundle:Game')->find($session->get('game')->getId());
         return $this->render('EsportBundle:Dashboard:teams.html.twig',array('teams'=>$game->getTeams()));
     }
 
